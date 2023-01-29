@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2023 at 02:00 AM
+-- Generation Time: Jan 29, 2023 at 12:16 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `rmps`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity`
+--
+
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
+  `rab_master_component_id` int(11) NOT NULL,
+  `rab_component_id` int(11) NOT NULL,
+  `rab_item_id` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `finish` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_id`, `description`, `created_at`, `created_by`, `finish`) VALUES
+(9, 1, 3, 1, 1, 'asd', '0000-00-00 00:00:00', 0, 1),
+(10, 1, 3, 1, 2, 'c', '0000-00-00 00:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -59,6 +85,31 @@ INSERT INTO `approve_pelaporan_um` (`id`, `pelaporan_um_id`, `level_id`, `approv
 (4, 1, '3', 'y', 'keuangan ok', '2023-01-26 00:00:00', 'y'),
 (5, 1, '2', 'y', 'ok', '2023-01-26 00:00:00', 'y'),
 (6, 1, '-1', 'y', 'ok', '2023-01-26 00:00:00', 'y');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approve_pengajuan_kegiatan`
+--
+
+CREATE TABLE `approve_pengajuan_kegiatan` (
+  `id` int(11) NOT NULL,
+  `tb_pengajuan_kegiatan_id` int(11) NOT NULL,
+  `level_id` int(11) NOT NULL,
+  `approved` enum('y','n') NOT NULL DEFAULT 'y',
+  `description` text DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `active` enum('y','n') NOT NULL DEFAULT 'y'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `approve_pengajuan_kegiatan`
+--
+
+INSERT INTO `approve_pengajuan_kegiatan` (`id`, `tb_pengajuan_kegiatan_id`, `level_id`, `approved`, `description`, `date`, `active`) VALUES
+(1, 1, 3, 'y', 'keuangan ok', '2023-01-28 13:11:27', 'y'),
+(2, 1, 2, 'y', 'program ok', '2023-01-28 13:13:29', 'y'),
+(3, 1, -1, 'y', 'ketua ok', '2023-01-28 13:13:44', 'y');
 
 -- --------------------------------------------------------
 
@@ -224,7 +275,20 @@ INSERT INTO `audittrail` (`id`, `datetime`, `script`, `user`, `action`, `table`,
 (113, '2023-01-26 04:23:50', '/simanda-web/logout', '9', 'logout', '::1', '', '', '', ''),
 (114, '2023-01-26 04:23:58', '/simanda-web/login', '9', 'login', '::1', '', '', '', ''),
 (115, '2023-01-26 04:24:22', '/simanda-web/logout', '9', 'logout', '::1', '', '', '', ''),
-(116, '2023-01-26 04:24:28', '/simanda-web/login', '3', 'login', '::1', '', '', '', '');
+(116, '2023-01-26 04:24:28', '/simanda-web/login', '3', 'login', '::1', '', '', '', ''),
+(117, '2023-01-28 12:09:50', '/simanda-web/login', '-1', 'login', '::1', '', '', '', ''),
+(118, '2023-01-28 13:05:32', '/simanda-web/login', '9', 'login', '::1', '', '', '', ''),
+(119, '2023-01-28 13:06:36', '/simanda-web/logout', '9', 'logout', '::1', '', '', '', ''),
+(120, '2023-01-28 13:06:43', '/simanda-web/login', '9', 'login', '::1', '', '', '', ''),
+(121, '2023-01-28 13:08:15', '/simanda-web/logout', '9', 'logout', '::1', '', '', '', ''),
+(122, '2023-01-28 13:08:21', '/simanda-web/login', '9', 'login', '::1', '', '', '', ''),
+(123, '2023-01-28 13:11:51', '/simanda-web/logout', '9', 'logout', '::1', '', '', '', ''),
+(124, '2023-01-28 13:11:59', '/simanda-web/login', '3', 'login', '::1', '', '', '', ''),
+(125, '2023-01-28 13:13:10', '/simanda-web/logout', '3', 'logout', '::1', '', '', '', ''),
+(126, '2023-01-28 13:13:17', '/simanda-web/login', '3', 'login', '::1', '', '', '', ''),
+(127, '2023-01-28 20:36:03', '/simanda-web/logout', '-1', 'logout', '::1', '', '', '', ''),
+(128, '2023-01-28 20:36:07', '/simanda-web/login', '-1', 'login', '::1', '', '', '', ''),
+(129, '2023-01-28 20:36:58', '/simanda-web/login', '-1', 'login', '::1', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -353,7 +417,7 @@ CREATE TABLE `pelaporan_um` (
 --
 
 INSERT INTO `pelaporan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`, `tanggal_pengajuan`, `pj_pelaporan_id`, `lampiran`, `total_pelaporan`, `created_at`, `created_by`, `status`) VALUES
-(1, 1, 2023, 1, '2023-01-26', 3, 'example-red-tag-example-red-square-price-tag-117502755(3).jpg', 25400000, NULL, NULL, 3);
+(1, 1, 15, 1, '2023-01-26', 3, 'example-red-tag-example-red-square-price-tag-117502755(3).jpg', 25400000, NULL, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -367,13 +431,14 @@ CREATE TABLE `pelaporan_um_detail` (
   `program_id` int(11) NOT NULL,
   `rab_master_component_id` int(11) NOT NULL,
   `rab_component_id` int(11) NOT NULL,
+  `rab_item_component_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `unit_id` int(11) NOT NULL,
   `termin_cost` int(11) NOT NULL,
   `unit_termin_id` int(11) NOT NULL,
   `total_cost` int(11) DEFAULT NULL,
-  `rab_item_component_id` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
+  `attachment` text DEFAULT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -381,12 +446,12 @@ CREATE TABLE `pelaporan_um_detail` (
 -- Dumping data for table `pelaporan_um_detail`
 --
 
-INSERT INTO `pelaporan_um_detail` (`id`, `pelaporan_um_id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `rab_item_component_id`, `cost`, `description`) VALUES
-(5, 1, 1, 3, 1, 2, 9, 1, 1, 500000, 1, 250000, NULL),
-(6, 1, 1, 3, 1, 2, 9, 5, 1, 600000, 2, 300000, NULL),
-(7, 1, 1, 3, 1, 2, 9, 1, 3, 300000, 3, 150000, NULL),
-(8, 1, 1, 3, 1, 2, 9, 1, 3, 4000000, 4, 2000000, NULL),
-(9, 1, 1, 3, 1, 2, 9, 10, 3, 20000000, 6, 1000000, NULL);
+INSERT INTO `pelaporan_um_detail` (`id`, `pelaporan_um_id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `cost`, `attachment`, `description`) VALUES
+(5, 1, 1, 3, 1, 1, 2, 9, 1, 1, 500000, 250000, NULL, NULL),
+(6, 1, 1, 3, 1, 2, 2, 9, 5, 1, 600000, 300000, NULL, NULL),
+(7, 1, 1, 3, 1, 3, 2, 9, 1, 3, 300000, 150000, NULL, NULL),
+(8, 1, 1, 3, 1, 4, 2, 9, 1, 3, 4000000, 2000000, NULL, NULL),
+(9, 1, 1, 3, 1, 6, 2, 9, 10, 3, 20000000, 1000000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -413,7 +478,9 @@ CREATE TABLE `pengajuan_um` (
 --
 
 INSERT INTO `pengajuan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`, `tanggal_pengajuan`, `pj_pengajuan_id`, `lampiran`, `total_pengajuan`, `created_at`, `created_by`, `status`) VALUES
-(4, 1, 2023, 1, '2023-01-26', 3, NULL, 4500000, NULL, NULL, 3);
+(4, 1, 14, 1, '2020-02-07', 3, NULL, 4500000, NULL, NULL, 3),
+(5, 1, 15, 3, '2023-01-29', 3, 'example-red-tag-example-red-square-price-tag-117502755(8).jpg', 600000, NULL, NULL, 3),
+(6, 1, 15, 5, '2023-03-23', 3, 'example-red-tag-example-red-square-price-tag-117502755(9).jpg', 2400000, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -445,7 +512,10 @@ INSERT INTO `pengajuan_um_detail` (`id`, `pengajuan_um_id`, `program_id`, `rab_m
 (3, 4, 1, 3, 1, 1, 2, 9, 1, 1, 600000, 300000, NULL),
 (4, 4, 1, 3, 1, 2, 2, 9, 1, 1, 700000, 350000, NULL),
 (5, 4, 1, 3, 1, 3, 2, 9, 1, 3, 200000, 100000, NULL),
-(6, 4, 1, 3, 1, 4, 2, 9, 1, 3, 3000000, 1500000, NULL);
+(6, 4, 1, 3, 1, 4, 2, 9, 1, 3, 3000000, 1500000, NULL),
+(7, 5, 1, 3, 1, 2, 1, 1, 2, 2, 600000, 300000, NULL),
+(8, 6, 1, 3, 3, 8, 2, 1, 1, 7, 2000000, 1000000, NULL),
+(9, 6, 1, 3, 3, 13, 1, 1, 1, 8, 400000, 400000, NULL);
 
 -- --------------------------------------------------------
 
@@ -519,6 +589,7 @@ CREATE TABLE `prosedur standar operasional` (
 
 CREATE TABLE `rab_component` (
   `id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
   `rab_master_component_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
@@ -532,10 +603,10 @@ CREATE TABLE `rab_component` (
 -- Dumping data for table `rab_component`
 --
 
-INSERT INTO `rab_component` (`id`, `rab_master_component_id`, `name`, `description`, `total_item`, `total_cost`, `created_at`, `active`) VALUES
-(1, 3, 'Equipment and Supplies', NULL, 6, 5950000, '2023-01-26 03:09:48', 'y'),
-(2, 3, 'Class Room', NULL, 1, 1500000, '2023-01-26 03:11:35', 'y'),
-(3, 3, 'Accomodation', NULL, 6, 3650000, '2023-01-26 03:12:06', 'y');
+INSERT INTO `rab_component` (`id`, `program_id`, `rab_master_component_id`, `name`, `description`, `total_item`, `total_cost`, `created_at`, `active`) VALUES
+(1, 1, 3, 'Equipment and Supplies', NULL, 6, 5950000, '2023-01-28 14:55:45', 'y'),
+(2, 1, 3, 'Class Room', NULL, 1, 1500000, '2023-01-28 14:56:02', 'y'),
+(3, 1, 3, 'Accomodation', NULL, 6, 3650000, '2023-01-28 14:56:10', 'y');
 
 -- --------------------------------------------------------
 
@@ -545,6 +616,8 @@ INSERT INTO `rab_component` (`id`, `rab_master_component_id`, `name`, `descripti
 
 CREATE TABLE `rab_item_component` (
   `id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
+  `rab_master_component_id` int(11) NOT NULL,
   `rab_component_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
@@ -554,6 +627,7 @@ CREATE TABLE `rab_item_component` (
   `cost` int(11) NOT NULL DEFAULT 0,
   `total_cost` int(11) NOT NULL,
   `description` text DEFAULT NULL,
+  `is_activity` tinyint(1) NOT NULL,
   `created_at` datetime NOT NULL,
   `active` enum('y','n') NOT NULL DEFAULT 'y'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -562,20 +636,20 @@ CREATE TABLE `rab_item_component` (
 -- Dumping data for table `rab_item_component`
 --
 
-INSERT INTO `rab_item_component` (`id`, `rab_component_id`, `name`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `cost`, `total_cost`, `description`, `created_at`, `active`) VALUES
-(1, 1, 'Ketinting Machine (Rent)', 2, 9, 1, 1, 250000, 500000, NULL, '2023-01-26 03:14:14', 'y'),
-(2, 1, 'Outboard Boat Machine (Rent)', 2, 9, 1, 1, 300000, 600000, NULL, '2023-01-26 03:14:24', 'y'),
-(3, 1, 'Stationery', 2, 9, 1, 3, 150000, 300000, NULL, '0000-00-00 00:00:00', 'y'),
-(4, 1, 'Screen and Projector (Rent)', 2, 9, 1, 3, 2000000, 4000000, NULL, '0000-00-00 00:00:00', 'y'),
-(5, 1, 'Material', 2, 9, 1, 3, 25000, 50000, NULL, '2023-01-26 03:16:37', 'y'),
-(6, 1, 'Banner', 2, 9, 1, 1, 250000, 500000, NULL, '0000-00-00 00:00:00', 'y'),
-(7, 2, 'Class Room', 2, 9, 1, 2, 750000, 1500000, NULL, '0000-00-00 00:00:00', 'y'),
-(8, 3, 'Hall and bathroom for participant lodging (Rent)', 2, 9, 1, 5, 1000000, 2000000, NULL, '0000-00-00 00:00:00', 'y'),
-(9, 3, 'General Ketinting Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, '0000-00-00 00:00:00', 'y'),
-(10, 3, 'Mechanic Ketinting Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, '0000-00-00 00:00:00', 'y'),
-(11, 3, 'Outboard Machine Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, '0000-00-00 00:00:00', 'y'),
-(12, 3, 'Instructure Lodging', 2, 9, 1, 3, 400000, 800000, NULL, '0000-00-00 00:00:00', 'y'),
-(13, 3, 'Comitte Lodging', 1, 9, 1, 3, 400000, 400000, NULL, '0000-00-00 00:00:00', 'y');
+INSERT INTO `rab_item_component` (`id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `name`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `cost`, `total_cost`, `description`, `is_activity`, `created_at`, `active`) VALUES
+(1, 1, 3, 1, 'Ketinting Machine (Rent)', 2, 9, 1, 1, 250000, 500000, NULL, 1, '2023-01-28 15:05:32', 'y'),
+(2, 1, 3, 1, 'Outboard Boat Machine (Rent)', 2, 9, 1, 1, 300000, 600000, NULL, 1, '2023-01-28 23:49:36', 'y'),
+(3, 1, 3, 1, 'Stationery', 2, 9, 1, 3, 150000, 300000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(4, 1, 3, 1, 'Screen and Projector (Rent)', 2, 9, 1, 3, 2000000, 4000000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(5, 1, 3, 1, 'Material', 2, 9, 1, 3, 25000, 50000, NULL, 0, '2023-01-26 03:16:37', 'y'),
+(6, 1, 3, 1, 'Banner', 2, 9, 1, 1, 250000, 500000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(7, 1, 3, 2, 'Class Room', 2, 9, 1, 2, 750000, 1500000, NULL, 1, '2023-01-28 23:49:46', 'y'),
+(8, 1, 3, 3, 'Hall and bathroom for participant lodging (Rent)', 2, 9, 1, 5, 1000000, 2000000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(9, 1, 3, 3, 'General Ketinting Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(10, 1, 3, 3, 'Mechanic Ketinting Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(11, 1, 3, 3, 'Outboard Machine Training Participant', 1, 9, 1, 12, 150000, 150000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(12, 1, 3, 3, 'Instructure Lodging', 2, 9, 1, 3, 400000, 800000, NULL, 0, '0000-00-00 00:00:00', 'y'),
+(13, 1, 3, 3, 'Comitte Lodging', 1, 9, 1, 3, 400000, 400000, NULL, 0, '0000-00-00 00:00:00', 'y');
 
 -- --------------------------------------------------------
 
@@ -598,77 +672,6 @@ CREATE TABLE `rab_master_component` (
 
 INSERT INTO `rab_master_component` (`id`, `program_id`, `name`, `description`, `created_at`, `aktif`) VALUES
 (3, 1, 'Cost Component', NULL, '2023-01-26 03:09:31', 'y');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rap_component`
---
-
-CREATE TABLE `rap_component` (
-  `id` int(11) NOT NULL,
-  `rap_master_component_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `total_item` int(11) DEFAULT NULL,
-  `total_cost` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `active` enum('y','n') NOT NULL DEFAULT 'y'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rap_item_component`
---
-
-CREATE TABLE `rap_item_component` (
-  `id` int(11) NOT NULL,
-  `rap_component_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `unit_id` int(11) DEFAULT NULL,
-  `cost` int(11) NOT NULL,
-  `termin_cost` int(11) NOT NULL,
-  `unit_termin_id` int(11) DEFAULT NULL,
-  `cost_paid` int(11) DEFAULT NULL,
-  `cost_usage` int(11) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `status` enum('0','1','2','3') NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL,
-  `active` enum('y','n') NOT NULL DEFAULT 'y'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rap_item_component_report`
---
-
-CREATE TABLE `rap_item_component_report` (
-  `id` int(11) NOT NULL,
-  `rap_item_component_id` int(11) NOT NULL,
-  `cost` int(11) NOT NULL,
-  `description` text DEFAULT NULL,
-  `attachment` text DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `active` enum('y','n') NOT NULL DEFAULT 'y'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rap_master_component`
---
-
-CREATE TABLE `rap_master_component` (
-  `id` int(11) NOT NULL,
-  `program_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `aktif` enum('y','n') NOT NULL DEFAULT 'y'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -1098,11 +1101,19 @@ CREATE TABLE `tb_pengajuan_kegiatan` (
   `rencana_anggaran` decimal(18,2) DEFAULT NULL,
   `pj_kegiatan` int(11) DEFAULT NULL,
   `lampiran` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL,
   `create_date` datetime DEFAULT NULL,
   `create_by` varchar(255) DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `update_by` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `tb_pengajuan_kegiatan`
+--
+
+INSERT INTO `tb_pengajuan_kegiatan` (`id`, `id_program`, `judul_kegiatan`, `detail_kegiatan`, `tahun`, `bulan`, `tgl_pelaksanaan`, `rencana_anggaran`, `pj_kegiatan`, `lampiran`, `status`, `create_date`, `create_by`, `update_date`, `update_by`) VALUES
+(1, 1, 'Tes pengjuan', 'Dictum ullamcorper lobortis interdum ultrices cursus penatibus gravida vulputate nunc mauris porttitor', 15, 1, '2023-01-28', '15000000.00', 3, 'example-red-tag-example-red-square-price-tag-117502755.jpg', 3, '2023-01-28 12:46:40', 'Administrator', '2023-01-28 12:46:40', 'Administrator');
 
 -- --------------------------------------------------------
 
@@ -2262,7 +2273,7 @@ INSERT INTO `userlevelpermissions` (`userlevelid`, `tablename`, `permission`) VA
 (3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pengajuan_um', 509),
 (3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pengajuan_um', 504),
 (3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pengajuan_um_detail', 504),
-(3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}tb_pengajuan_kegiatan', 0),
+(3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}tb_pengajuan_kegiatan', 504),
 (2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pengajuan_um', 505),
 (2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pengajuan_um', 504),
 (2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pengajuan_um_detail', 504),
@@ -2274,7 +2285,11 @@ INSERT INTO `userlevelpermissions` (`userlevelid`, `tablename`, `permission`) VA
 (3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pelaporan_um', 509),
 (2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pelaporan_um', 504),
 (2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}pelaporan_um_detail', 504),
-(2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pelaporan_um', 505);
+(2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pelaporan_um', 505),
+(3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pengajuan_kegiatan', 509),
+(3, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}audittrail', 0),
+(2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}approve_pengajuan_kegiatan', 505),
+(2, '{F3560AC8-C86C-41C2-9965-888FE775AFBD}audittrail', 0);
 
 -- --------------------------------------------------------
 
@@ -2326,6 +2341,52 @@ CREATE TABLE `view_uangmuka` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `vmactivityitem`
+-- (See below for the actual view)
+--
+CREATE TABLE `vmactivityitem` (
+`id` int(11)
+,`program_id` int(11)
+,`rab_master_component_id` int(11)
+,`rab_component_id` int(11)
+,`name` varchar(100)
+,`description` text
+,`finish` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vmaktivity`
+-- (See below for the actual view)
+--
+CREATE TABLE `vmaktivity` (
+`id` int(11)
+,`program_id` int(11)
+,`rab_master_component_id` int(11)
+,`name` varchar(100)
+,`total_activity` bigint(21)
+,`total_activity_finish` bigint(21)
+,`prosentase` decimal(24,0)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vrab`
+-- (See below for the actual view)
+--
+CREATE TABLE `vrab` (
+`program_id` int(11)
+,`rab_master_component_id` int(11)
+,`rab_component_id` int(11)
+,`name` varchar(100)
+,`total` decimal(32,0)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `vrabrap`
 -- (See below for the actual view)
 --
@@ -2339,24 +2400,6 @@ CREATE TABLE `vrabrap` (
 ,`total` decimal(33,0)
 ,`penyesuaian` decimal(32,0)
 ,`hasil` decimal(34,0)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_rab`
--- (See below for the actual view)
---
-CREATE TABLE `v_rab` (
-`program_id` int(11)
-,`rab_master_component_id` int(11)
-,`rab_component_id` int(11)
-,`rab_item_id` int(11)
-,`name` varchar(100)
-,`item_qty` varchar(267)
-,`termin_qty` varchar(267)
-,`cost` int(11)
-,`total_cost` int(11)
 );
 
 -- --------------------------------------------------------
@@ -2448,20 +2491,38 @@ CREATE VIEW `view_uangmuka`  AS SELECT `rab_master_component`.`program_id` AS `p
 -- --------------------------------------------------------
 
 --
+-- Structure for view `vmactivityitem`
+--
+DROP TABLE IF EXISTS `vmactivityitem`;
+
+CREATE VIEW `vmactivityitem`  AS SELECT `rab_item_component`.`id` AS `id`, `rab_item_component`.`program_id` AS `program_id`, `rab_item_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_item_component`.`name` AS `name`, `activity`.`description` AS `description`, `activity`.`finish` AS `finish` FROM (`rab_item_component` left join `activity` on(`rab_item_component`.`program_id` = `activity`.`program_id` and `rab_item_component`.`rab_master_component_id` = `activity`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `activity`.`rab_component_id` and `rab_item_component`.`id` = `activity`.`rab_item_id`)) WHERE `rab_item_component`.`is_activity` = 1  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vmaktivity`
+--
+DROP TABLE IF EXISTS `vmaktivity`;
+
+CREATE VIEW `vmaktivity`  AS SELECT `rab_component`.`id` AS `id`, `rab_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_component`.`name` AS `name`, (select coalesce(count(0),0) from `rab_item_component` where `rab_item_component`.`program_id` = `rab_component`.`program_id` and `rab_item_component`.`rab_component_id` = `rab_component`.`id` and `rab_item_component`.`is_activity` = 1) AS `total_activity`, (select coalesce(count(0),0) from `activity` where `activity`.`program_id` = `rab_component`.`program_id` and `activity`.`rab_component_id` = `rab_component`.`id` and `activity`.`finish` = 1) AS `total_activity_finish`, coalesce(round(100 / (select coalesce(count(0),0) from `rab_item_component` where `rab_item_component`.`program_id` = `rab_component`.`program_id` and `rab_item_component`.`rab_component_id` = `rab_component`.`id` and `rab_item_component`.`is_activity` = 1) * (select coalesce(count(0),0) from `activity` where `activity`.`program_id` = `rab_component`.`program_id` and `activity`.`rab_component_id` = `rab_component`.`id` and `activity`.`finish` = 1),0),0) AS `prosentase` FROM ((`rab_component` left join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id` and `rab_component`.`program_id` = `rab_item_component`.`program_id` and `rab_component`.`rab_master_component_id` = `rab_item_component`.`rab_master_component_id`)) left join `activity` on(`rab_item_component`.`program_id` = `activity`.`program_id` and `rab_item_component`.`rab_master_component_id` = `activity`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `activity`.`rab_component_id` and `rab_item_component`.`id` = `activity`.`rab_item_id`)) WHERE `rab_item_component`.`is_activity` = 1 GROUP BY `rab_component`.`id`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vrab`
+--
+DROP TABLE IF EXISTS `vrab`;
+
+CREATE VIEW `vrab`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_component`.`name` AS `name`, (select coalesce(sum(`rab_item_component`.`total_cost`),0) from `rab_item_component` where `rab_item_component`.`rab_component_id` = `rab_component`.`id`) AS `total` FROM ((`rab_master_component` left join `rab_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) left join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) GROUP BY `rab_item_component`.`rab_component_id`, `rab_component`.`name`;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `vrabrap`
 --
 DROP TABLE IF EXISTS `vrabrap`;
 
 CREATE VIEW `vrabrap`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `master_id`, `rab_item_component`.`rab_component_id` AS `component_id`, `rab_item_component`.`name` AS `nama_komponen`, `rab_component`.`total_cost` AS `rencana_biaya`, (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `realisasi_biaya`, `rab_component`.`total_cost`- (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `total`, (select coalesce(sum(`balancing`.`amount`),0) from `balancing` where `balancing`.`program_id` = `rab_master_component`.`program_id` and `balancing`.`rab_master_component_id` = `rab_component`.`rab_master_component_id` and `balancing`.`rab_component_id` = `rab_component`.`id`) AS `penyesuaian`, `rab_component`.`total_cost`- (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) - (select coalesce(sum(`balancing`.`amount`),0) from `balancing` where `balancing`.`program_id` = `rab_master_component`.`program_id` and `balancing`.`rab_master_component_id` = `rab_component`.`rab_master_component_id` and `balancing`.`rab_component_id` = `rab_component`.`id`) AS `hasil` FROM ((`rab_master_component` left join `rab_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) GROUP BY `rab_master_component`.`program_id`, `rab_component`.`rab_master_component_id`, `rab_item_component`.`rab_component_id`;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_rab`
---
-DROP TABLE IF EXISTS `v_rab`;
-
-CREATE VIEW `v_rab`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_item_component`.`id` AS `rab_item_id`, `rab_item_component`.`name` AS `name`, concat(`rab_item_component`.`amount`,' ',(select `tb_satuan_unit`.`unit` from `tb_satuan_unit` where `tb_satuan_unit`.`id` = `rab_item_component`.`unit_id`)) AS `item_qty`, concat(`rab_item_component`.`termin_cost`,' ',(select `tb_satuan_unit`.`unit` from `tb_satuan_unit` where `tb_satuan_unit`.`id` = `rab_item_component`.`termin_cost`)) AS `termin_qty`, `rab_item_component`.`cost` AS `cost`, `rab_item_component`.`total_cost` AS `total_cost` FROM (((`rab_master_component` join `rab_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) join `tb_satuan_unit` on(`rab_item_component`.`unit_id` = `tb_satuan_unit`.`id`))  ;
 
 -- --------------------------------------------------------
 
@@ -2477,10 +2538,22 @@ CREATE VIEW `wilayah`  AS SELECT `tb_propinsi`.`id` AS `ID`, `tb_propinsi`.`prop
 --
 
 --
+-- Indexes for table `activity`
+--
+ALTER TABLE `activity`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `approve_pelaporan_um`
 --
 ALTER TABLE `approve_pelaporan_um`
   ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indexes for table `approve_pengajuan_kegiatan`
+--
+ALTER TABLE `approve_pengajuan_kegiatan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `approve_pengajuan_um`
@@ -2552,30 +2625,6 @@ ALTER TABLE `rab_item_component`
 -- Indexes for table `rab_master_component`
 --
 ALTER TABLE `rab_master_component`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `rap_component`
---
-ALTER TABLE `rap_component`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `rap_item_component`
---
-ALTER TABLE `rap_item_component`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `rap_item_component_report`
---
-ALTER TABLE `rap_item_component_report`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `rap_master_component`
---
-ALTER TABLE `rap_master_component`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
@@ -2901,10 +2950,22 @@ ALTER TABLE `userlevels`
 --
 
 --
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `approve_pelaporan_um`
 --
 ALTER TABLE `approve_pelaporan_um`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `approve_pengajuan_kegiatan`
+--
+ALTER TABLE `approve_pengajuan_kegiatan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `approve_pengajuan_um`
@@ -2916,7 +2977,7 @@ ALTER TABLE `approve_pengajuan_um`
 -- AUTO_INCREMENT for table `audittrail`
 --
 ALTER TABLE `audittrail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `balancing`
@@ -2940,13 +3001,13 @@ ALTER TABLE `pelaporan_um_detail`
 -- AUTO_INCREMENT for table `pengajuan_um`
 --
 ALTER TABLE `pengajuan_um`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pengajuan_um_detail`
 --
 ALTER TABLE `pengajuan_um_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pengajuan_um_payment`
@@ -2977,30 +3038,6 @@ ALTER TABLE `rab_item_component`
 --
 ALTER TABLE `rab_master_component`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `rap_component`
---
-ALTER TABLE `rap_component`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `rap_item_component`
---
-ALTER TABLE `rap_item_component`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `rap_item_component_report`
---
-ALTER TABLE `rap_item_component_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `rap_master_component`
---
-ALTER TABLE `rap_master_component`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_akunbank`
@@ -3144,7 +3181,7 @@ ALTER TABLE `tb_penerima_manfaat`
 -- AUTO_INCREMENT for table `tb_pengajuan_kegiatan`
 --
 ALTER TABLE `tb_pengajuan_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_posisi_kerja`
