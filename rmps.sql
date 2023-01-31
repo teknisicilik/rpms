@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2023 at 12:16 PM
+-- Generation Time: Jan 31, 2023 at 09:15 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -288,7 +288,8 @@ INSERT INTO `audittrail` (`id`, `datetime`, `script`, `user`, `action`, `table`,
 (126, '2023-01-28 13:13:17', '/simanda-web/login', '3', 'login', '::1', '', '', '', ''),
 (127, '2023-01-28 20:36:03', '/simanda-web/logout', '-1', 'logout', '::1', '', '', '', ''),
 (128, '2023-01-28 20:36:07', '/simanda-web/login', '-1', 'login', '::1', '', '', '', ''),
-(129, '2023-01-28 20:36:58', '/simanda-web/login', '-1', 'login', '::1', '', '', '', '');
+(129, '2023-01-28 20:36:58', '/simanda-web/login', '-1', 'login', '::1', '', '', '', ''),
+(130, '2023-01-30 05:23:50', '/simanda-web/login', '-1', 'login', '::1', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -417,7 +418,8 @@ CREATE TABLE `pelaporan_um` (
 --
 
 INSERT INTO `pelaporan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`, `tanggal_pengajuan`, `pj_pelaporan_id`, `lampiran`, `total_pelaporan`, `created_at`, `created_by`, `status`) VALUES
-(1, 1, 15, 1, '2023-01-26', 3, 'example-red-tag-example-red-square-price-tag-117502755(3).jpg', 25400000, NULL, NULL, 3);
+(1, 1, 15, 1, '2023-01-26', 3, 'example-red-tag-example-red-square-price-tag-117502755(3).jpg', 25400000, NULL, NULL, 3),
+(2, 1, 15, 5, '2023-01-20', 3, NULL, 8400000, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -428,6 +430,8 @@ INSERT INTO `pelaporan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`
 CREATE TABLE `pelaporan_um_detail` (
   `id` int(11) NOT NULL,
   `pelaporan_um_id` int(11) NOT NULL,
+  `periode_tahun` int(11) NOT NULL,
+  `periode_bulan` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
   `rab_master_component_id` int(11) NOT NULL,
   `rab_component_id` int(11) NOT NULL,
@@ -446,12 +450,14 @@ CREATE TABLE `pelaporan_um_detail` (
 -- Dumping data for table `pelaporan_um_detail`
 --
 
-INSERT INTO `pelaporan_um_detail` (`id`, `pelaporan_um_id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `cost`, `attachment`, `description`) VALUES
-(5, 1, 1, 3, 1, 1, 2, 9, 1, 1, 500000, 250000, NULL, NULL),
-(6, 1, 1, 3, 1, 2, 2, 9, 5, 1, 600000, 300000, NULL, NULL),
-(7, 1, 1, 3, 1, 3, 2, 9, 1, 3, 300000, 150000, NULL, NULL),
-(8, 1, 1, 3, 1, 4, 2, 9, 1, 3, 4000000, 2000000, NULL, NULL),
-(9, 1, 1, 3, 1, 6, 2, 9, 10, 3, 20000000, 1000000, NULL, NULL);
+INSERT INTO `pelaporan_um_detail` (`id`, `pelaporan_um_id`, `periode_tahun`, `periode_bulan`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `cost`, `attachment`, `description`) VALUES
+(5, 1, 15, 1, 1, 3, 1, 1, 2, 9, 1, 1, 500000, 250000, NULL, NULL),
+(6, 1, 15, 1, 1, 3, 1, 2, 2, 9, 5, 1, 600000, 300000, NULL, NULL),
+(7, 1, 15, 1, 1, 3, 1, 3, 2, 9, 1, 3, 300000, 150000, NULL, NULL),
+(8, 1, 15, 1, 1, 3, 1, 4, 2, 9, 1, 3, 4000000, 2000000, NULL, NULL),
+(9, 1, 15, 1, 1, 3, 1, 6, 2, 9, 10, 3, 20000000, 1000000, NULL, NULL),
+(10, 2, 15, 5, 1, 3, 3, 13, 2, 1, 2, 2, 8000000, 2000000, NULL, NULL),
+(11, 2, 15, 5, 1, 3, 1, 5, 1, 1, 2, 1, 400000, 200000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -478,9 +484,9 @@ CREATE TABLE `pengajuan_um` (
 --
 
 INSERT INTO `pengajuan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`, `tanggal_pengajuan`, `pj_pengajuan_id`, `lampiran`, `total_pengajuan`, `created_at`, `created_by`, `status`) VALUES
-(4, 1, 14, 1, '2020-02-07', 3, NULL, 4500000, NULL, NULL, 3),
+(4, 1, 15, 1, '2020-02-07', 3, NULL, 4500000, NULL, NULL, 3),
 (5, 1, 15, 3, '2023-01-29', 3, 'example-red-tag-example-red-square-price-tag-117502755(8).jpg', 600000, NULL, NULL, 3),
-(6, 1, 15, 5, '2023-03-23', 3, 'example-red-tag-example-red-square-price-tag-117502755(9).jpg', 2400000, NULL, NULL, 0);
+(6, 1, 15, 5, '2023-03-23', 3, 'example-red-tag-example-red-square-price-tag-117502755(9).jpg', 10600000, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -491,6 +497,8 @@ INSERT INTO `pengajuan_um` (`id`, `program_id`, `periode_tahun`, `periode_bulan`
 CREATE TABLE `pengajuan_um_detail` (
   `id` int(11) NOT NULL,
   `pengajuan_um_id` int(11) NOT NULL,
+  `periode_tahun` int(11) NOT NULL,
+  `periode_bulan` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
   `rab_master_component_id` int(11) NOT NULL,
   `rab_component_id` int(11) NOT NULL,
@@ -508,14 +516,14 @@ CREATE TABLE `pengajuan_um_detail` (
 -- Dumping data for table `pengajuan_um_detail`
 --
 
-INSERT INTO `pengajuan_um_detail` (`id`, `pengajuan_um_id`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `cost`, `description`) VALUES
-(3, 4, 1, 3, 1, 1, 2, 9, 1, 1, 600000, 300000, NULL),
-(4, 4, 1, 3, 1, 2, 2, 9, 1, 1, 700000, 350000, NULL),
-(5, 4, 1, 3, 1, 3, 2, 9, 1, 3, 200000, 100000, NULL),
-(6, 4, 1, 3, 1, 4, 2, 9, 1, 3, 3000000, 1500000, NULL),
-(7, 5, 1, 3, 1, 2, 1, 1, 2, 2, 600000, 300000, NULL),
-(8, 6, 1, 3, 3, 8, 2, 1, 1, 7, 2000000, 1000000, NULL),
-(9, 6, 1, 3, 3, 13, 1, 1, 1, 8, 400000, 400000, NULL);
+INSERT INTO `pengajuan_um_detail` (`id`, `pengajuan_um_id`, `periode_tahun`, `periode_bulan`, `program_id`, `rab_master_component_id`, `rab_component_id`, `rab_item_component_id`, `amount`, `unit_id`, `termin_cost`, `unit_termin_id`, `total_cost`, `cost`, `description`) VALUES
+(3, 4, 15, 1, 1, 3, 1, 1, 2, 9, 1, 1, 600000, 300000, NULL),
+(4, 4, 15, 1, 1, 3, 1, 2, 2, 9, 1, 1, 700000, 350000, NULL),
+(5, 4, 15, 1, 1, 3, 1, 3, 2, 9, 1, 3, 200000, 100000, NULL),
+(6, 4, 15, 1, 1, 3, 1, 4, 2, 9, 1, 3, 3000000, 1500000, NULL),
+(7, 5, 15, 3, 1, 3, 1, 2, 1, 1, 2, 2, 600000, 300000, NULL),
+(8, 6, 15, 5, 1, 3, 3, 8, 9, 1, 1, 7, 9000000, 1000000, NULL),
+(9, 6, 15, 5, 1, 3, 3, 13, 4, 1, 1, 8, 1600000, 400000, NULL);
 
 -- --------------------------------------------------------
 
@@ -2330,10 +2338,9 @@ INSERT INTO `userlevels` (`userlevelid`, `userlevelname`) VALUES
 CREATE TABLE `view_uangmuka` (
 `program_id` int(11)
 ,`rab_master_component_id` int(11)
-,`rab_component_id` int(11)
-,`id` int(11)
+,`component_id` int(11)
 ,`name` varchar(100)
-,`total_cost` int(11)
+,`total_rab` int(11)
 ,`total_pengajuan` decimal(32,0)
 ,`total_pelaporan` decimal(32,0)
 );
@@ -2400,6 +2407,51 @@ CREATE TABLE `vrabrap` (
 ,`total` decimal(33,0)
 ,`penyesuaian` decimal(32,0)
 ,`hasil` decimal(34,0)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vrabrapmonthly`
+-- (See below for the actual view)
+--
+CREATE TABLE `vrabrapmonthly` (
+`id` int(11)
+,`kode_program` varchar(255)
+,`tahun_name` varchar(255)
+,`total_rencana` decimal(32,0)
+,`total_realisasi` decimal(33,0)
+,`jan` decimal(37,0)
+,`feb` decimal(37,0)
+,`mar` decimal(37,0)
+,`apr` decimal(37,0)
+,`mei` decimal(37,0)
+,`jun` decimal(37,0)
+,`jul` decimal(37,0)
+,`agust` decimal(37,0)
+,`sept` decimal(37,0)
+,`okt` decimal(37,0)
+,`nov` decimal(37,0)
+,`des` decimal(37,0)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vrealisasimonthly`
+-- (See below for the actual view)
+--
+CREATE TABLE `vrealisasimonthly` (
+`program_id` int(11)
+,`rab_master_component_id` int(11)
+,`id` int(11)
+,`name` varchar(100)
+,`periode_tahun` int(11)
+,`periode_bulan` int(11)
+,`periode` date
+,`rencana` int(11)
+,`realisasi` decimal(32,0)
+,`percentase` decimal(40,4)
 );
 
 -- --------------------------------------------------------
@@ -2486,7 +2538,7 @@ CREATE VIEW `template dokumen`  AS SELECT `tb_dokumen`.`id_kategori` AS `Kategor
 --
 DROP TABLE IF EXISTS `view_uangmuka`;
 
-CREATE VIEW `view_uangmuka`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_item_component`.`id` AS `id`, `rab_item_component`.`name` AS `name`, `rab_item_component`.`total_cost` AS `total_cost`, sum(`pengajuan_um_detail`.`cost`) AS `total_pengajuan`, sum(distinct `pelaporan_um_detail`.`cost`) AS `total_pelaporan` FROM ((((`rab_component` join `rab_master_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) left join `pengajuan_um_detail` on(`rab_master_component`.`program_id` = `pengajuan_um_detail`.`program_id` and `rab_component`.`rab_master_component_id` = `pengajuan_um_detail`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `pengajuan_um_detail`.`rab_component_id` and `rab_item_component`.`id` = `pengajuan_um_detail`.`rab_item_component_id`)) left join `pelaporan_um_detail` on(`rab_master_component`.`program_id` = `pelaporan_um_detail`.`program_id` and `rab_component`.`rab_master_component_id` = `pelaporan_um_detail`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `pelaporan_um_detail`.`rab_component_id` and `rab_item_component`.`id` = `pelaporan_um_detail`.`rab_item_component_id`)) GROUP BY `rab_master_component`.`program_id`, `rab_component`.`rab_master_component_id`, `rab_item_component`.`rab_component_id`, `rab_item_component`.`id`, `rab_item_component`.`name`, `rab_item_component`.`total_cost`;
+CREATE VIEW `view_uangmuka`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_component`.`id` AS `component_id`, `rab_component`.`name` AS `name`, `rab_component`.`total_cost` AS `total_rab`, (select sum(`pengajuan_um_detail`.`total_cost`) from `pengajuan_um_detail` where `pengajuan_um_detail`.`program_id` = `rab_master_component`.`program_id` and `pengajuan_um_detail`.`rab_master_component_id` = `rab_master_component`.`id` and `pengajuan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `total_pengajuan`, (select sum(`pelaporan_um_detail`.`total_cost`) from `pelaporan_um_detail` where `pelaporan_um_detail`.`program_id` = `rab_master_component`.`program_id` and `pelaporan_um_detail`.`rab_master_component_id` = `rab_master_component`.`id` and `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `total_pelaporan` FROM ((((`rab_component` join `rab_master_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) left join `pengajuan_um_detail` on(`rab_master_component`.`program_id` = `pengajuan_um_detail`.`program_id` and `rab_component`.`rab_master_component_id` = `pengajuan_um_detail`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `pengajuan_um_detail`.`rab_component_id` and `rab_item_component`.`id` = `pengajuan_um_detail`.`rab_item_component_id`)) left join `pelaporan_um_detail` on(`rab_master_component`.`program_id` = `pelaporan_um_detail`.`program_id` and `rab_component`.`rab_master_component_id` = `pelaporan_um_detail`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `pelaporan_um_detail`.`rab_component_id` and `rab_item_component`.`id` = `pelaporan_um_detail`.`rab_item_component_id`)) GROUP BY `rab_master_component`.`program_id`, `rab_component`.`rab_master_component_id`, `rab_component`.`id`;
 
 -- --------------------------------------------------------
 
@@ -2495,7 +2547,7 @@ CREATE VIEW `view_uangmuka`  AS SELECT `rab_master_component`.`program_id` AS `p
 --
 DROP TABLE IF EXISTS `vmactivityitem`;
 
-CREATE VIEW `vmactivityitem`  AS SELECT `rab_item_component`.`id` AS `id`, `rab_item_component`.`program_id` AS `program_id`, `rab_item_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_item_component`.`name` AS `name`, `activity`.`description` AS `description`, `activity`.`finish` AS `finish` FROM (`rab_item_component` left join `activity` on(`rab_item_component`.`program_id` = `activity`.`program_id` and `rab_item_component`.`rab_master_component_id` = `activity`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `activity`.`rab_component_id` and `rab_item_component`.`id` = `activity`.`rab_item_id`)) WHERE `rab_item_component`.`is_activity` = 1  ;
+CREATE VIEW `vmactivityitem`  AS SELECT `rab_item_component`.`id` AS `id`, `rab_item_component`.`program_id` AS `program_id`, `rab_item_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_item_component`.`rab_component_id` AS `rab_component_id`, `rab_item_component`.`name` AS `name`, `activity`.`description` AS `description`, `activity`.`finish` AS `finish` FROM (`rab_item_component` left join `activity` on(`rab_item_component`.`program_id` = `activity`.`program_id` and `rab_item_component`.`rab_master_component_id` = `activity`.`rab_master_component_id` and `rab_item_component`.`rab_component_id` = `activity`.`rab_component_id` and `rab_item_component`.`id` = `activity`.`rab_item_id`)) WHERE `rab_item_component`.`is_activity` = 11  ;
 
 -- --------------------------------------------------------
 
@@ -2523,6 +2575,24 @@ CREATE VIEW `vrab`  AS SELECT `rab_master_component`.`program_id` AS `program_id
 DROP TABLE IF EXISTS `vrabrap`;
 
 CREATE VIEW `vrabrap`  AS SELECT `rab_master_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `master_id`, `rab_item_component`.`rab_component_id` AS `component_id`, `rab_item_component`.`name` AS `nama_komponen`, `rab_component`.`total_cost` AS `rencana_biaya`, (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `realisasi_biaya`, `rab_component`.`total_cost`- (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) AS `total`, (select coalesce(sum(`balancing`.`amount`),0) from `balancing` where `balancing`.`program_id` = `rab_master_component`.`program_id` and `balancing`.`rab_master_component_id` = `rab_component`.`rab_master_component_id` and `balancing`.`rab_component_id` = `rab_component`.`id`) AS `penyesuaian`, `rab_component`.`total_cost`- (select coalesce(sum(`pelaporan_um_detail`.`total_cost`),0) from `pelaporan_um_detail` where `pelaporan_um_detail`.`rab_component_id` = `rab_component`.`id`) - (select coalesce(sum(`balancing`.`amount`),0) from `balancing` where `balancing`.`program_id` = `rab_master_component`.`program_id` and `balancing`.`rab_master_component_id` = `rab_component`.`rab_master_component_id` and `balancing`.`rab_component_id` = `rab_component`.`id`) AS `hasil` FROM ((`rab_master_component` left join `rab_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id`)) join `rab_item_component` on(`rab_component`.`id` = `rab_item_component`.`rab_component_id`)) GROUP BY `rab_master_component`.`program_id`, `rab_component`.`rab_master_component_id`, `rab_item_component`.`rab_component_id`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vrabrapmonthly`
+--
+DROP TABLE IF EXISTS `vrabrapmonthly`;
+
+CREATE VIEW `vrabrapmonthly`  AS SELECT `tb_prog_detail`.`id` AS `id`, `tb_prog_detail`.`kode_program` AS `kode_program`, `tb_tahun`.`tahun` AS `tahun_name`, (select coalesce(sum(`rab_component`.`total_cost`),0) from `rab_component` where `rab_component`.`program_id` = `tb_prog_detail`.`id`) AS `total_rencana`, (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id`) - (select (select coalesce(sum(`balancing`.`amount`),0) from `balancing` where `balancing`.`program_id` = `tb_prog_detail`.`id` and `balancing`.`pelaporan_id` in (select `pelaporan_um`.`id` from `pelaporan_um` where `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id`))) AS `total_realisasi`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 1) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 1),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 1),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 1))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 1) * 100,0)) AS `jan`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 2) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 2),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 2),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 2))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 2) * 100,0)) AS `feb`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 3) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 3),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 3),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 3))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 3) * 100,0)) AS `mar`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 4) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 4),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 4),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 4))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 4) * 100,0)) AS `apr`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 5) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 5),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 5),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 5))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 5) * 100,0)) AS `mei`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 6) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 6),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 6),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 6))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 6) * 100,0)) AS `jun`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 7) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 7),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 7),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 7))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 7) * 100,0)) AS `jul`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 8) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 8),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 8),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 8))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 8) * 100,0)) AS `agust`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 9) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 9),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 9),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 9))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 9) * 100,0)) AS `sept`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 10) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 10),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 10),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 10))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 10) * 100,0)) AS `okt`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 11) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 11),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 11),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 11))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 11) * 100,0)) AS `nov`, (select round((select if((select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 12) >= (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 12),-1 * (select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 12),(select coalesce(sum(`pelaporan_um`.`total_pelaporan`),0) from `pelaporan_um` where `pelaporan_um`.`program_id` = `tb_prog_detail`.`id` and `pelaporan_um`.`periode_tahun` = `tb_tahun`.`id` and `pelaporan_um`.`periode_bulan` = 12))) / (select coalesce(sum(`pengajuan_um`.`total_pengajuan`),0) from `pengajuan_um` where `pengajuan_um`.`program_id` = `tb_prog_detail`.`id` and `pengajuan_um`.`periode_tahun` = `tb_tahun`.`id` and `pengajuan_um`.`periode_bulan` = 12) * 100,0)) AS `des` FROM (((((`rab_component` left join `pelaporan_um` on(`pelaporan_um`.`program_id` = `rab_component`.`program_id`)) join `tb_prog_detail` on(`tb_prog_detail`.`id` = `rab_component`.`program_id`)) join `tb_tahun`) join `balancing`) join `pengajuan_um`) GROUP BY `tb_prog_detail`.`id`, `tb_prog_detail`.`kode_program`, `tb_tahun`.`tahun`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vrealisasimonthly`
+--
+DROP TABLE IF EXISTS `vrealisasimonthly`;
+
+CREATE VIEW `vrealisasimonthly`  AS SELECT `rab_component`.`program_id` AS `program_id`, `rab_component`.`rab_master_component_id` AS `rab_master_component_id`, `rab_component`.`id` AS `id`, `rab_component`.`name` AS `name`, `pelaporan_um_detail`.`periode_tahun` AS `periode_tahun`, `pelaporan_um_detail`.`periode_bulan` AS `periode_bulan`, (select str_to_date(concat(`tb_tahun`.`tahun`,'-',if(octet_length(`pelaporan_um_detail`.`periode_bulan`) < 2,concat('0',`pelaporan_um_detail`.`periode_bulan`),`pelaporan_um_detail`.`periode_bulan`),'-01'),'%Y-%m-%d')) AS `periode`, `rab_component`.`total_cost` AS `rencana`, sum(distinct `pelaporan_um_detail`.`total_cost`) AS `realisasi`, (select if(sum(distinct `pelaporan_um_detail`.`total_cost`) <= `rab_component`.`total_cost`,sum(distinct `pelaporan_um_detail`.`total_cost`),-1 * sum(distinct `pelaporan_um_detail`.`total_cost`)) / (select coalesce(`rab_component`.`total_cost`,0)) * 100) AS `percentase` FROM (((`rab_master_component` join `rab_component` on(`rab_master_component`.`id` = `rab_component`.`rab_master_component_id` and `rab_master_component`.`program_id` = `rab_component`.`program_id`)) left join `pelaporan_um_detail` on(`rab_component`.`program_id` = `pelaporan_um_detail`.`program_id` and `rab_component`.`rab_master_component_id` = `pelaporan_um_detail`.`rab_master_component_id` and `rab_component`.`id` = `pelaporan_um_detail`.`rab_component_id`)) join `tb_tahun` on(`pelaporan_um_detail`.`periode_tahun` = `tb_tahun`.`id`)) GROUP BY `rab_component`.`program_id`, `rab_component`.`rab_master_component_id`, `rab_component`.`id`, `rab_component`.`name`, `pelaporan_um_detail`.`periode_tahun`, `pelaporan_um_detail`.`periode_bulan`;
 
 -- --------------------------------------------------------
 
@@ -2977,7 +3047,7 @@ ALTER TABLE `approve_pengajuan_um`
 -- AUTO_INCREMENT for table `audittrail`
 --
 ALTER TABLE `audittrail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `balancing`
@@ -2989,13 +3059,13 @@ ALTER TABLE `balancing`
 -- AUTO_INCREMENT for table `pelaporan_um`
 --
 ALTER TABLE `pelaporan_um`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pelaporan_um_detail`
 --
 ALTER TABLE `pelaporan_um_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pengajuan_um`
