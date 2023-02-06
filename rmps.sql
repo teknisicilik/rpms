@@ -39,7 +39,7 @@ CREATE TABLE `activity` (
   `finish` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
+-- 
 -- Dumping data for table `activity`
 --
 
