@@ -3432,3 +3432,111 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+CREATE TABLE `pelaporan_um_external`
+(
+ `id` int
+(11) NOT NULL AUTO_INCREMENT,
+ `date` date NOT NULL,
+ `program_id` int
+(11) NOT NULL,
+ `rab_master_component_id` int
+(11) NOT NULL,
+ `rab_component_id` int
+(11) NOT NULL,
+ `rab_item_component_id` int
+(11) NOT NULL,
+ `amount` int
+(11) NOT NULL,
+ `unit_id` int
+(11) NOT NULL,
+ `termin_cost` int
+(11) NOT NULL,
+ `unit_termin_id` int
+(11) NOT NULL,
+ `total_cost` int
+(11) DEFAULT NULL,
+ `cost` int
+(11) NOT NULL,
+ `attachment` text DEFAULT NULL,
+ `description` text DEFAULT NULL,
+ PRIMARY KEY
+(`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
+
+
+CREATE TABLE `rab_component_external`
+(
+ `id` int
+(11) NOT NULL AUTO_INCREMENT,
+ `program_id` int
+(11) NOT NULL,
+ `rab_master_component_id` int
+(11) NOT NULL,
+ `name` varchar
+(100) NOT NULL,
+ `description` text DEFAULT NULL,
+ `total_item` int
+(11) DEFAULT NULL,
+ `total_cost` int
+(11) DEFAULT NULL,
+ `created_at` datetime NOT NULL,
+ `active` enum
+('y','n') NOT NULL DEFAULT 'y',
+ PRIMARY KEY
+(`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
+
+
+CREATE TABLE `rab_item_component_external`
+(
+ `id` int
+(11) NOT NULL AUTO_INCREMENT,
+ `program_id` int
+(11) NOT NULL,
+ `rab_master_component_id` int
+(11) NOT NULL,
+ `rab_component_id` int
+(11) NOT NULL,
+ `name` varchar
+(100) NOT NULL,
+ `amount` int
+(11) NOT NULL,
+ `unit_id` int
+(11) DEFAULT NULL,
+ `termin_cost` int
+(11) NOT NULL,
+ `unit_termin_id` int
+(11) DEFAULT NULL,
+ `cost` int
+(11) NOT NULL DEFAULT 0,
+ `total_cost` int
+(11) NOT NULL,
+ `description` text DEFAULT NULL,
+ `is_activity` tinyint
+(1) NOT NULL,
+ `created_at` datetime NOT NULL,
+ `active` enum
+('y','n') NOT NULL DEFAULT 'y',
+ PRIMARY KEY
+(`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
+
+
+CREATE TABLE `rab_master_component_external`
+(
+ `id` int
+(11) NOT NULL AUTO_INCREMENT,
+ `program_id` int
+(11) NOT NULL,
+ `name` varchar
+(100) NOT NULL,
+ `description` text DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `aktif` enum
+('y','n') NOT NULL DEFAULT 'y',
+ PRIMARY KEY
+(`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
