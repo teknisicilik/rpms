@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 13/02/2023 05:25:06
+ Date: 15/02/2023 12:54:05
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,23 @@ CREATE TABLE `activity`  (
   `created_by` int NOT NULL,
   `finish` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for approval_balancing
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_balancing`;
+CREATE TABLE `approval_balancing`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `balancing_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `level_id` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `approved` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'y',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `date` datetime NULL DEFAULT NULL,
+  `active` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'y',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for approval_config
@@ -44,7 +60,7 @@ CREATE TABLE `approval_config`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `active` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'y',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for approval_config_detail
@@ -63,7 +79,7 @@ CREATE TABLE `approval_config_detail`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `approval_config_id`(`approval_config_id` ASC, `table_name` ASC, `order_number` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for approve_pelaporan_um
@@ -95,7 +111,7 @@ CREATE TABLE `approve_pengajuan_kegiatan`  (
   `date` datetime NULL DEFAULT NULL,
   `active` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'y',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for approve_pengajuan_um
@@ -129,7 +145,7 @@ CREATE TABLE `audittrail`  (
   `oldvalue` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `newvalue` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 138 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for balancing
@@ -151,10 +167,10 @@ CREATE TABLE `balancing`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `atachment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` datetime NOT NULL,
-  `status` int NULL DEFAULT NULL,
+  `status` int NULL DEFAULT 0,
   `active` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'y',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for pelaporan_um
@@ -1319,13 +1335,13 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_uangmuka` AS SELECT
 -- View structure for vmactivityitem
 -- ----------------------------
 DROP VIEW IF EXISTS `vmactivityitem`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vmactivityitem` AS SELECT rab_item_component.id, rab_item_component.program_id, rab_item_component.rab_master_component_id, rab_item_component.rab_component_id, rab_item_component.name, activity.description, activity.finish FROM rab_item_component LEFT JOIN activity ON rab_item_component.program_id = activity.program_id AND rab_item_component.rab_master_component_id = activity.rab_master_component_id AND rab_item_component.rab_component_id = activity.rab_component_id AND rab_item_component.id = activity.rab_item_id WHERE rab_item_component.is_activity = 1 ;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vmactivityitem` AS SELECT rab_item_component.id AS id, rab_item_component.program_id AS program_id, rab_item_component.rab_master_component_id AS rab_master_component_id, rab_item_component.rab_component_id AS rab_component_id, rab_item_component.name AS name, activity.description AS description, activity.finish AS finish, activity.id AS activity_id FROM rab_item_component LEFT JOIN activity ON rab_item_component.program_id = activity.program_id AND rab_item_component.rab_master_component_id = activity.rab_master_component_id AND rab_item_component.rab_component_id = activity.rab_component_id AND rab_item_component.id = activity.rab_item_id WHERE rab_item_component.is_activity = 1 ;
 
 -- ----------------------------
 -- View structure for vmaktivity
 -- ----------------------------
 DROP VIEW IF EXISTS `vmaktivity`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vmaktivity` AS SELECT rab_component.id AS id, rab_component.program_id AS program_id, rab_component.rab_master_component_id AS rab_master_component_id, rab_component.name AS name, (SELECT coalesce(Count(0), 0) FROM rab_item_component WHERE rab_item_component.program_id = rab_component.program_id AND rab_item_component.rab_component_id = rab_component.id AND rab_item_component.is_activity = 1) AS total_activity, (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id AND activity.finish = 1) AS total_activity_finish, coalesce(round(100 / (SELECT coalesce(Count(0), 0) FROM rab_item_component WHERE rab_item_component.program_id = rab_component.program_id AND rab_item_component.rab_component_id = rab_component.id AND rab_item_component.is_activity = 1) * (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id AND activity.finish = 1), 0), 0) AS prosentase FROM (rab_component LEFT JOIN rab_item_component ON rab_component.id = rab_item_component.rab_component_id AND rab_component.program_id = rab_item_component.program_id AND rab_component.rab_master_component_id = rab_item_component.rab_master_component_id) LEFT JOIN activity ON rab_item_component.program_id = activity.program_id AND rab_item_component.rab_master_component_id = activity.rab_master_component_id AND rab_item_component.rab_component_id = activity.rab_component_id AND rab_item_component.id = activity.rab_item_id WHERE rab_item_component.is_activity = 1 GROUP BY rab_component.id ;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vmaktivity` AS SELECT rab_component.id AS id, rab_component.program_id AS program_id, rab_component.rab_master_component_id AS rab_master_component_id, rab_component.name AS name, (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id ) AS total_activity, (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id AND activity.finish = 1 ) AS total_activity_finish, coalesce(round(100 / (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id ) * (SELECT coalesce(Count(0), 0) FROM activity WHERE activity.program_id = rab_component.program_id AND activity.rab_component_id = rab_component.id AND activity.finish = 1), 0), 0) AS prosentase FROM (rab_component LEFT JOIN rab_item_component ON rab_component.id = rab_item_component.rab_component_id AND rab_component.program_id = rab_item_component.program_id AND rab_component.rab_master_component_id = rab_item_component.rab_master_component_id) LEFT JOIN activity ON rab_item_component.program_id = activity.program_id AND rab_item_component.rab_master_component_id = activity.rab_master_component_id AND rab_item_component.rab_component_id = activity.rab_component_id AND rab_item_component.id = activity.rab_item_id WHERE rab_item_component.is_activity = 1 GROUP BY rab_component.id ;
 
 -- ----------------------------
 -- View structure for vrab
